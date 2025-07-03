@@ -1,0 +1,28 @@
+# Python cache and compiled files
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# OS files
+.DS_Store
+
+# IDE/editor settings
+.vscode/
+.idea/
+
+# Data storage and output files
+backend/datastorage/
+*.json
+
+# Selenium/ChromeDriver logs (if any)
+chromedriver.log
+
+# Jupyter Notebook checkpoints (if you use notebooks)
+.ipynb_checkpoints/
+
+.env
