@@ -37,7 +37,7 @@ def scrape_arxiv(keywords: List[str], output_file: str = "datastorage/arxiv.json
                         })
                         found_any = True
             if not found_any:
-                break  # No more results, stop paginating
+                break
     with open(output_file, "w", encoding="utf-8") as f:
         json.dump(res, f, ensure_ascii=False, indent=2)
     return res

@@ -18,7 +18,6 @@ def scrape_endpoint(keywords: List[str]=Query(...,description="Keywords to searc
     return JSONResponse(content={"error":"No data found."},status_code=404)
 
 keywords = [
-    # Core fields
     "machine learning",
     "deep learning",
     "artificial intelligence",
@@ -31,8 +30,6 @@ keywords = [
     "transfer learning",
     "representation learning",
     "semi-supervised learning",
-
-    # Application areas
     "speech recognition",
     "image processing",
     "object detection",
@@ -43,8 +40,6 @@ keywords = [
     "robotics",
     "bioinformatics",
     "medical imaging",
-
-    # Trending topics
     "large language models",
     "generative adversarial networks",
     "graph neural networks",
@@ -54,8 +49,6 @@ keywords = [
     "multi-modal learning",
     "edge AI",
     "AI ethics",
-
-    # Other useful keywords
     "pattern recognition",
     "feature selection",
     "dimensionality reduction",
