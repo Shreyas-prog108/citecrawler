@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query, BackgroundTasks
 from typing import List
 from fastapi.responses import JSONResponse
 import os
@@ -6,6 +6,8 @@ import json
 from scrape import scrape_all
 
 app = FastAPI()
+
+# Removed @app.on_event("startup") and related background task code
 
 @app.get("/scrape")
 def scrape_endpoint(keywords: List[str]=Query(...,description="Keywords to search for")):
@@ -62,4 +64,4 @@ keywords = [
     "transformers"
 ]
 
-scrape_all(keywords)
+# scrape_all(keywords)  # Still commented out to prevent blocking startup

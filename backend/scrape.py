@@ -9,7 +9,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 os.makedirs("datastorage", exist_ok=True)
 
-def scrape_arxiv(keywords: List[str], output_file: str = "datastorage/arxiv.json", max_results_per_keyword: int = 200) -> List[Dict]:
+def scrape_arxiv(keywords: List[str], output_file: str = "datastorage/arxiv.json", max_results_per_keyword: int = 20000) -> List[Dict]:
     res = []
     base_url = "https://arxiv.org/search/?query={query}&searchtype=all&source=header&start={start}"
     results_per_page = 50
