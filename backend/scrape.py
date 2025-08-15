@@ -9,7 +9,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 os.makedirs("datastorage", exist_ok=True)
 
-def scrape_arxiv(keywords: List[str], output_file: str = "datastorage/arxiv.json", max_results_per_keyword: int = 20000) -> List[Dict]:
+def scrape_arxiv(keywords: List[str], output_file: str = "datastorage/arxiv.json", max_results_per_keyword: int = 1000) -> List[Dict]:
     res = []
     base_url = "https://arxiv.org/search/?query={query}&searchtype=all&source=header&start={start}"
     results_per_page = 50
@@ -49,3 +49,52 @@ def scrape_all(keywords: List[str]):
     with open("datastorage/all_papers.json", "w", encoding="utf-8") as f:
         json.dump(all_results, f, ensure_ascii=False, indent=2)
     print(f"Saved {len(all_results)} papers to datastorage/all_papers.json")
+
+
+if __name__ == "__main__":
+    print("Script started. Current working directory:", os.getcwd())
+    keywords = [
+        "machine learning",
+        "deep learning",
+        "artificial intelligence",
+        "data science",
+        "computer vision",
+        "natural language processing",
+        "reinforcement learning",
+        "supervised learning",
+        "unsupervised learning",
+        "transfer learning",
+        "representation learning",
+        "semi-supervised learning",
+        "speech recognition",
+        "image processing",
+        "object detection",
+        "generative models",
+        "recommender systems",
+        "anomaly detection",
+        "time series forecasting",
+        "robotics",
+        "bioinformatics",
+        "medical imaging",
+        "large language models",
+        "generative adversarial networks",
+        "graph neural networks",
+        "explainable AI",
+        "federated learning",
+        "self-supervised learning",
+        "multi-modal learning",
+        "edge AI",
+        "AI ethics",
+        "pattern recognition",
+        "feature selection",
+        "dimensionality reduction",
+        "clustering",
+        "classification",
+        "regression",
+        "optimization",
+        "neural networks",
+        "convolutional neural networks",
+        "recurrent neural networks",
+        "transformers"
+    ]
+    scrape_all(keywords)
