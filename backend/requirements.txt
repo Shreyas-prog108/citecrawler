@@ -1,9 +1,5 @@
 fastapi
-uvicorn
 requests
-beautifulsoup4
+bs4
 selenium
-webdriver-manager
-pinecone-client
-sentence-transformers
-python-dotenv
+webdriver_manager
