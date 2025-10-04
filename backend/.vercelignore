@@ -1,0 +1,37 @@
+# Local development files
+app.py
+scrape.py
+main.py
+pinecone_utils.py
+
+# Data and storage
+datastorage/
+*.json
+*.csv
+
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Environment
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+tests/
+test_*.py
+*_test.py
