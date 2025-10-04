@@ -86,14 +86,17 @@ export default function HomePage() {
       const data = await response.json();
       console.log("✅ Load more response:", data);
       
-      if (!data || !Array.isArray(data) || data.length === 0) {
+      // Extract results array from response
+      const results = data.results || data;
+      
+      if (!results || !Array.isArray(results) || results.length === 0) {
         setHasMoreResults(false);
         return;
       }
       
       // Transform the data
-      const newPapers = data.map((paper: any, index: number) => ({
-        id: paper.id || `paper-${papers.length + index}`,
+      const newPapers = results.map((paper: any, index: number) => ({
+        id: paper.id || `paper-${allPapers.length + index}`,
         title: paper.title || "Untitled",
         link: paper.link || "",
         source: paper.source || "Papers",
@@ -111,7 +114,7 @@ export default function HomePage() {
       setTotalPages(Math.ceil((allPapers.length + newPapers.length) / 10));
       
       // If we got less than 10 results, no more pages
-      if (data.length < 10) {
+      if (results.length < 10) {
         setHasMoreResults(false);
       }
       
@@ -255,23 +258,27 @@ export default function HomePage() {
       const data = await response.json();
       console.log("✅ Backend response:", data);
       console.log("✅ Data type:", typeof data);
-      console.log("✅ Is array:", Array.isArray(data));
-      console.log("✅ Data length:", data?.length);
       
-      if (!data || !Array.isArray(data)) {
+      // Extract results array from response
+      const results = data.results || data;
+      console.log("✅ Results:", results);
+      console.log("✅ Is array:", Array.isArray(results));
+      console.log("✅ Results length:", results?.length);
+      
+      if (!results || !Array.isArray(results)) {
         console.log("⚠️ Invalid data format");
-        setPapers([]);
+        setAllPapers([]);
         return;
       }
       
-      if (data.length === 0) {
+      if (results.length === 0) {
         console.log("⚠️ No results from backend");
-        setPapers([]);
+        setAllPapers([]);
         return;
       }
       
       // Transform the data
-      const transformedPapers = data.map((paper: any, index: number) => ({
+      const transformedPapers = results.map((paper: any, index: number) => ({
         id: paper.id || `paper-${index}`,
         title: paper.title || "Untitled",
         link: paper.link || "",

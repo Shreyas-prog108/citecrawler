@@ -1,3 +1,42 @@
-/.vscode
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-backend
+# Dependencies
+node_modules/
+bun.lockb
+
+# IDE
+/.vscode
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Backend (if separate)
+backend/
+
+# Build outputs
+.next/
+out/
+dist/
+build/
+
+# Vercel
+.vercel

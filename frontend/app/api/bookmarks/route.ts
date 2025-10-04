@@ -58,6 +58,23 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Paper data required" }, { status: 400 });
     }
 
+    // Validate paper data structure
+    if (!paper.id || !paper.title || !paper.link) {
+      return NextResponse.json({ error: "Invalid paper data: missing required fields" }, { status: 400 });
+    }
+
+    // Sanitize paper data
+    const sanitizedPaper = {
+      id: String(paper.id).trim(),
+      title: String(paper.title).trim().substring(0, 500), // Limit title length
+      link: String(paper.link).trim(),
+      source: String(paper.source || "Papers").trim(),
+      keyword: String(paper.keyword || "").trim().substring(0, 100),
+      abstract: String(paper.abstract || "").trim().substring(0, 2000), // Limit abstract length
+      authors: Array.isArray(paper.authors) ? paper.authors.slice(0, 10) : [], // Limit authors
+      publishedDate: paper.publishedDate || new Date().toISOString(),
+    };
+
     console.log("🔖 Connecting to database...");
     await dbConnect();
     console.log("🔖 Database connected");
@@ -85,17 +102,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Paper already bookmarked" }, { status: 400 });
     }
 
-    // Add bookmark
-    const bookmarkData = {
-      id: paper.id,
-      title: paper.title,
-      link: paper.link,
-      source: paper.source,
-      keyword: paper.keyword,
-      abstract: paper.abstract,
-      authors: paper.authors || [],
-      publishedDate: paper.publishedDate,
-    };
+    // Add bookmark using sanitized data
+    const bookmarkData = sanitizedPaper;
     
     console.log("🔖 Adding bookmark:", bookmarkData);
     userDoc.bookmarks.push(bookmarkData);
