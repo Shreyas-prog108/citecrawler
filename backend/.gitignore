@@ -17,7 +17,8 @@ env/
 
 # Data storage and output files
 backend/datastorage/
-*.json
+all_papers.json
+arxiv.json
 
 # Selenium/ChromeDriver logs (if any)
 chromedriver.log
