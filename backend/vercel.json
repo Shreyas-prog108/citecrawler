@@ -1,16 +1,18 @@
 {
-  "rewrites": [
+  "version": 2,
+  "builds": [
     {
-      "source": "/docs",
-      "destination": "/api/index.py/docs"
-    },
-    {
-      "source": "/openapi.json",
-      "destination": "/api/index.py/openapi.json"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/api/$1"
+      "src": "api/index.py",
+      "use": "@vercel/python"
     }
-  ]
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "api/index.py"
+    }
+  ],
+  "env": {
+    "PINECONE_API_KEY": "@pinecone_api_key"
+  }
 }

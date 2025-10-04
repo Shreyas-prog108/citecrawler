@@ -226,3 +226,6 @@ async def test():
         "version": "1.0.0"
     }
 
+# Vercel serverless handler - REQUIRED for deployment
+handler = app
+
