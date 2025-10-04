@@ -6,7 +6,8 @@ pinecone_utils.py
 
 # Data and storage
 datastorage/
-*.json
+all_papers.json
+arxiv.json
 *.csv
 
 # Python
