@@ -1,42 +1,27 @@
-# Environment files
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# Dependencies
-node_modules/
-bun.lockb
+# dependencies
+/node_modules
 
-# IDE
-/.vscode
-.idea/
+# next.js
+/.next/
+/out/
 
-# OS
-.DS_Store
-Thumbs.db
+# production
+/build
 
-# Logs
-*.log
+# debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.pnpm-debug.log*
 
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
-
-# Backend (if separate)
-backend/
-
-# Build outputs
-.next/
-out/
-dist/
-build/
-
-# Vercel
+# env files
+.env*
+.env
+# vercel
 .vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
