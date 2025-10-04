@@ -1,8 +1,5 @@
 {
-    "version": 2,
-    "builds": [
-      { "src": "next.config.js", "use": "@vercel/next" }
-    ],
-    "ignoreCommand": "echo 'Ignoring backend folder...'"
-  }
+  "version": 2,
+  "ignoreCommand": "echo 'Ignoring backend folder...'"
+}
   
