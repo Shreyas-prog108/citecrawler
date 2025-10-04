@@ -11,8 +11,5 @@
       "src": "/(.*)",
       "dest": "api/index.py"
     }
-  ],
-  "env": {
-    "PINECONE_API_KEY": "@pinecone_api_key"
-  }
+  ]
 }
