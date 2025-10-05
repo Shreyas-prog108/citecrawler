@@ -196,37 +196,7 @@ bun run format
 - `GET /api/bookmarks` - Retrieve user's bookmarked papers
 - `DELETE /api/bookmarks/{id}` - Remove bookmark
 
-### API Integration Examples
-
-```typescript
-// Search papers
-const searchPapers = async (query: string, filters?: SearchFilters) => {
-  const response = await fetch('/api/search', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ query, filters })
-  });
-  return response.json();
-};
-
-// Get user bookmarks
-const getBookmarks = async () => {
-  const response = await fetch('/api/bookmarks');
-  return response.json();
-};
-
-// Add bookmark
-const addBookmark = async (paperId: string) => {
-  const response = await fetch('/api/bookmarks', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ paperId })
-  });
-  return response.json();
-};
-```
-
-## 🌐 Frontend Deployment
+### 🌐 Frontend Deployment
 
 ### Vercel (Recommended for Next.js)
 
