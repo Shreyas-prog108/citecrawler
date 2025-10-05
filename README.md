@@ -48,8 +48,8 @@ Discover and explore cutting-edge research papers across 40+ domains of AI, Mach
 
    Configure your environment variables:
 
-
    # GitHub OAuth
+
    GITHUB_CLIENT_ID=your_github_client_id
    GITHUB_CLIENT_SECRET=your_github_client_secret
    NEXTAUTH_SECRET=your_nextauth_secret
@@ -300,7 +300,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Tailwind CSS](https://tailwindcss.com/) - CSS framework
 - [FastAPI](https://fastapi.tiangolo.com/) - Python web framework
 - [Pinecone](https://www.pinecone.io/) - Vector database
-- [GitHub](https://github.com/) - Code hosting and OAuth provider
+- [MongoDB](https://www.mongodb.com/) - DB provider
+- [Github](https://github.com/Shreyas-prog108/citecrawler) - Repo and OAuth provider
 
 ## 📞 Support
 
