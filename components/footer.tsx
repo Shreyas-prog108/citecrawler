@@ -2,11 +2,14 @@ import { Search } from "lucide-react"
 
 export function Footer() {
   const links = {
-    Product: ["Features", "Domains", "Pricing", "API"],
-    Resources: ["Documentation", "Guides", "Blog", "Support"],
-    Company: ["About", "Careers", "Contact", "Privacy"],
+    Product: ["Features", "Domains", "About"]
   }
-
+const support={
+  Resources: ["Documentation", "Privacy", "Guides"],
+}
+const contacts={
+  Company: ["Contact","Support"]
+}
   return (
     <footer className="border-t border-border bg-card/30">
       <div className="container mx-auto px-4 py-12">
@@ -37,6 +40,34 @@ export function Footer() {
               </ul>
             </div>
           ))}
+              {Object.entries(support).map(([category, items]) => (
+                <div key={category}>
+                  <h3 className="mb-4 font-semibold text-foreground">{category}</h3>
+                  <ul className="space-y-2">
+                    {items.map((item) => (
+                      <li key={item}>
+                        <a href="https://github.com/Shreyas-prog108/citecrawler" target="_blank" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+                          {item}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+              {Object.entries(contacts).map(([category, items]) => (
+                <div key={category}>
+                  <h3 className="mb-4 font-semibold text-foreground">{category}</h3>
+                  <ul className="space-y-2">
+                    {items.map((item) => (
+                      <li key={item}>
+                        <a href="https://x.com/Shreyas_Pandeyy" target="_blank" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+                          {item}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
         </div>
 
         <div className="mt-12 border-t border-border pt-8 text-center text-sm text-muted-foreground">
