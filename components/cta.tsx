@@ -59,14 +59,8 @@ export function CTA() {
                 {loading ? "Checking session..." : "Get Started"}
                 <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-border text-foreground hover:bg-card bg-transparent"
-                  onClick={handleViewDemo}
-                >
-                  View Demo
-                </Button>
+
+
               </div>
             </div>
           </div>
