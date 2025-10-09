@@ -3,14 +3,25 @@
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { SigninDialog } from "@/components/signin-dialog"
+import { useAuth } from "@/hooks/use-auth"
 
 export function CTA() {
   const [showSignin, setShowSignin] = useState(false)
+  const router = useRouter()
+  const { user, loading } = useAuth()
 
   const handleGetStarted = () => {
+    if (loading) return
+    if (user) {
+      router.push("/home")
+      return
+    }
     setShowSignin(true)
   }
+
+
 
   const handleViewDemo = () => {
     // Scroll to features section
@@ -41,8 +52,12 @@ export function CTA() {
                   className="bg-primary text-primary-foreground hover:bg-primary/90"
                   onClick={handleGetStarted}
                 >
-                  Get Started Free
-                  <ArrowRight className="ml-2 h-5 w-5" />
+ 
+
+
+              
+                {loading ? "Checking session..." : "Get Started"}
+                <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
                 <Button
                   size="lg"
