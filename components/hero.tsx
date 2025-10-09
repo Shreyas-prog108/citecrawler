@@ -1,25 +1,23 @@
 "use client";
 
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Search, Sparkles } from "lucide-react"
+import { Sparkles } from "lucide-react"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { SigninDialog } from "@/components/signin-dialog"
+import { useAuth } from "@/hooks/use-auth"
 
 export function Hero() {
-  const [searchQuery, setSearchQuery] = useState("")
   const [showSignin, setShowSignin] = useState(false)
   const router = useRouter()
-
-  const handleSearch = () => {
-    if (searchQuery.trim()) {
-      // Redirect to search results page with query
-      router.push(`/search?q=${encodeURIComponent(searchQuery)}`)
-    }
-  }
+  const { user, loading } = useAuth()
 
   const handleGetStarted = () => {
+    if (loading) return
+    if (user) {
+      router.push("/dashboard")
+      return
+    }
     setShowSignin(true)
   }
 
@@ -31,9 +29,7 @@ export function Hero() {
     }
   }
 
-  const handlePopularSearch = (term: string) => {
-    setSearchQuery(term)
-  }
+  // No-op; search removed in favor of Get Started flow
 
   return (
     <>
@@ -59,42 +55,15 @@ export function Hero() {
               Search, explore, and cite cutting-edge research papers from machine learning, deep learning, NLP, computer
               vision, and 40+ specialized domains.
             </p>
-
-            {/* Search bar */}
-            <div className="mx-auto mb-8 max-w-2xl">
-              <div className="relative flex items-center gap-2">
-                <div className="relative flex-1">
-                  <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
-                  <Input
-                    type="text"
-                    placeholder="Search for papers on neural networks, transformers, GANs..."
-                    className="h-14 bg-card pl-12 pr-4 text-base text-foreground placeholder:text-muted-foreground"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                  />
-                </div>
-                <Button 
-                  size="lg" 
-                  className="h-14 bg-primary px-8 text-primary-foreground hover:bg-primary/90"
-                  onClick={handleSearch}
-                >
-                  Search
-                </Button>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap items-center justify-center gap-3 text-sm text-muted-foreground">
-              <span>Popular searches:</span>
-              {["Transformers", "GANs", "Reinforcement Learning", "Computer Vision"].map((term) => (
-                <button
-                  key={term}
-                  className="rounded-full border border-border bg-card px-4 py-1.5 text-foreground transition-colors hover:border-primary hover:bg-primary/10"
-                  onClick={() => handlePopularSearch(term)}
-                >
-                  {term}
-                </button>
-              ))}
+            <div className="mx-auto mb-8 max-w-sm">
+              <Button
+                size="lg"
+                className="w-full h-14 bg-primary px-8 text-primary-foreground hover:bg-primary/90"
+                onClick={handleGetStarted}
+                disabled={loading}
+              >
+                {loading ? "Checking session..." : "Get Started"}
+              </Button>
             </div>
           </div>
         </div>
