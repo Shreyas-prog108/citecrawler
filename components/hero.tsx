@@ -15,7 +15,7 @@ export function Hero() {
   const handleGetStarted = () => {
     if (loading) return
     if (user) {
-      router.push("/dashboard")
+      router.push("/home")
       return
     }
     setShowSignin(true)
