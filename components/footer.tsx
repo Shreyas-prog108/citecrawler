@@ -46,7 +46,7 @@ const contacts={
                   <ul className="space-y-2">
                     {items.map((item) => (
                       <li key={item}>
-                        <a href="https://github.com/Shreyas-prog108/citecrawler" target="_blank" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+                        <a href="https://github.com/Shreyas-prog108/citecrawler" rel="noopener" target="_blank" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
                           {item}
                         </a>
                       </li>
@@ -60,7 +60,7 @@ const contacts={
                   <ul className="space-y-2">
                     {items.map((item) => (
                       <li key={item}>
-                        <a href="https://x.com/Shreyas_Pandeyy" target="_blank" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+                        <a href="https://x.com/Shreyas_Pandeyy"  rel="noopener" target="_blank" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
                           {item}
                         </a>
                       </li>
