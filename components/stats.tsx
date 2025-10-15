@@ -1,8 +1,8 @@
 export function Stats() {
   const stats = [
-    { value: "10M+", label: "Research Papers" },
+    { value: "10K+", label: "Research Papers" },
     { value: "40+", label: "AI/ML Domains" },
-    { value: "500K+", label: "Active Researchers" },
+    { value: "500+", label: "Active Researchers" },
     { value: "99.9%", label: "Uptime" },
   ]
 

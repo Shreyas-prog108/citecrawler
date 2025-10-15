@@ -11,11 +11,11 @@ export function DomainGrid() {
     { name: "Machine Learning", color: "bg-chart-4" },
     { name: "Neural Networks",  color: "bg-chart-2" },
     { name: "Generative AI",  color: "bg-chart-5" },
-    // { name: "Data Mining", papers: "2.1M+", color: "bg-chart-3" },
-    // { name: "Time Series Analysis", papers: "980K+", color: "bg-chart-1" },
-    // { name: "Robotics", papers: "1.5M+", color: "bg-chart-4" },
-    // { name: "Speech Recognition", papers: "750K+", color: "bg-chart-2" },
-    // { name: "Recommender Systems", papers: "620K+", color: "bg-chart-5" },
+    { name: "Data Mining", papers: "2.1M+", color: "bg-chart-3" },
+    { name: "Time Series Analysis", papers: "980K+", color: "bg-chart-1" },
+    { name: "Robotics", papers: "1.5M+", color: "bg-chart-4" },
+    { name: "Speech Recognition", papers: "750K+", color: "bg-chart-2" },
+    { name: "Recommender Systems", papers: "620K+", color: "bg-chart-5" },
   ]
 
   return (
