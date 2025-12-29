@@ -73,18 +73,15 @@ export default function HomePage() {
       const nextPage = currentPage + 1;
       const searchUrl = `${backendUrl}/search?q=${encodeURIComponent(searchQuery)}&top_k=10&page=${nextPage}`;
       
-      console.log("🔄 Loading more papers:", searchUrl);
       
       const response = await fetch(searchUrl);
       
       if (!response.ok) {
         const errorText = await response.text();
-        console.error("❌ Load more error:", response.status, errorText);
         return;
       }
 
       const data = await response.json();
-      console.log("✅ Load more response:", data);
       
       // Extract results array from response
       const results = data.results || data;
@@ -126,7 +123,6 @@ export default function HomePage() {
       }
       
     } catch (error) {
-      console.error("❌ Load more failed:", error);
     } finally {
       setIsLoadingMore(false);
     }
@@ -144,98 +140,75 @@ export default function HomePage() {
 
   const handleBookmark = async (paper: Paper) => {
     try {
-      console.log("🔖 Bookmarking paper:", paper);
-      
-      // Check if user is authenticated
       if (!user) {
-        console.error("❌ User not authenticated");
         alert("Please log in to bookmark papers.");
         return;
       }
       
       // Validate paper object
       if (!paper || !paper.id || !paper.title) {
-        console.error("❌ Invalid paper object:", paper);
         alert("Invalid paper data. Please try a different paper.");
         return;
       }
       
       const isBookmarked = bookmarks.some(b => b.id === paper.id);
-      console.log("🔖 Is already bookmarked:", isBookmarked);
       
       if (isBookmarked) {
-        // Remove bookmark
-        console.log("🔖 Removing bookmark...");
         const response = await fetch("/api/bookmarks", {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ paperId: paper.id }),
         });
         
-        console.log("🔖 Remove response:", response.status);
         if (response.ok) {
           setBookmarks(prev => prev.filter(b => b.id !== paper.id));
           setAllPapers(prev => prev.map(p => 
             p.id === paper.id ? { ...p, isBookmarked: false } : p
           ));
-          console.log("✅ Bookmark removed");
         } else {
           const errorText = await response.text();
-          console.error("❌ Remove bookmark failed:", errorText);
         }
       } else {
-        // Add bookmark
-        console.log("🔖 Adding bookmark...");
         const response = await fetch("/api/bookmarks", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ paper }),
         });
         
-        console.log("🔖 Add response:", response.status);
         if (response.ok) {
           const newBookmark = { ...paper, isBookmarked: true };
           setBookmarks(prev => [...prev, newBookmark]);
           setAllPapers(prev => prev.map(p => 
             p.id === paper.id ? { ...p, isBookmarked: true } : p
           ));
-          console.log("✅ Bookmark added");
         } else {
           const errorText = await response.text();
-          console.error("❌ Add bookmark failed:", errorText);
           alert("Failed to add bookmark. Please try again.");
         }
       }
     } catch (error) {
-      console.error("❌ Bookmark failed:", error);
       alert("An error occurred while bookmarking. Please try again.");
     }
   };
 
   const fetchBookmarks = async () => {
     try {
-      console.log("📚 Fetching bookmarks...");
       const response = await fetch("/api/bookmarks");
-      console.log("📚 Bookmarks response:", response.status);
       
       if (response.ok) {
         const data = await response.json();
-        console.log("📚 Bookmarks data:", data);
         
         // Ensure data is an array
         if (Array.isArray(data)) {
           setBookmarks(data);
         } else {
-          console.warn("📚 Bookmarks data is not an array:", data);
           setBookmarks([]);
         }
       } else {
         const errorText = await response.text();
-        console.error("❌ Failed to fetch bookmarks:", errorText);
         setBookmarks([]);
       }
     } catch (error) {
-      console.error("❌ Failed to fetch bookmarks:", error);
       setBookmarks([]);
     }
   };
@@ -243,43 +216,31 @@ export default function HomePage() {
   const handleSearch = async () => {
     if (!searchQuery.trim()) return;
     
-    console.log("🔍 Starting search for:", searchQuery);
     setIsSearching(true);
     
     try {
       const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8000";
       const searchUrl = `${backendUrl}/search?q=${encodeURIComponent(searchQuery)}&top_k=10`;
       
-      console.log("🔍 Search URL:", searchUrl);
       
       const response = await fetch(searchUrl);
-      console.log("🔍 Response status:", response.status);
       
       if (!response.ok) {
         const errorText = await response.text();
-        console.error("❌ Backend error:", response.status, errorText);
         alert(`Backend error: ${response.status}`);
         return;
       }
 
       const data = await response.json();
-      console.log("✅ Backend response:", data);
-      console.log("✅ Data type:", typeof data);
       
       // Extract results array from response
       const results = data.results || data;
-      console.log("✅ Results:", results);
-      console.log("✅ Is array:", Array.isArray(results));
-      console.log("✅ Results length:", results?.length);
-      
       if (!results || !Array.isArray(results)) {
-        console.log("⚠️ Invalid data format");
         setAllPapers([]);
         return;
       }
       
       if (results.length === 0) {
-        console.log("⚠️ No results from backend");
         setAllPapers([]);
         return;
       }
@@ -291,11 +252,6 @@ export default function HomePage() {
         const paperLink = paper.link || paper.url || paper.pdf_url || paper.arxiv_url || "";
         const paperAbstract = paper.abstract || paper.summary || paper.description || "";
         
-        console.log(`📄 Paper ${index}:`, {
-          id: paper.id,
-          title: paperTitle,
-          originalFields: Object.keys(paper)
-        });
         
         return {
           id: paper.id || paper.paper_id || `paper-${index}`,
@@ -311,14 +267,12 @@ export default function HomePage() {
         };
       });
       
-      console.log("✅ Transformed papers:", transformedPapers);
       setAllPapers(transformedPapers);
       setCurrentPage(1);
       setTotalPages(Math.ceil(transformedPapers.length / 10));
       setHasMoreResults(transformedPapers.length >= 10);
       
     } catch (error) {
-      console.error("❌ Search failed:", error);
       alert(`Search failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
     } finally {
       setIsSearching(false);
