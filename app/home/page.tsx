@@ -94,19 +94,26 @@ export default function HomePage() {
         return;
       }
       
-      // Transform the data
-      const newPapers = results.map((paper: any, index: number) => ({
-        id: paper.id || `paper-${allPapers.length + index}`,
-        title: paper.title || "Untitled",
-        link: paper.link || "",
-        source: paper.source || "Papers",
-        keyword: searchQuery,
-        abstract: paper.abstract || "",
-        authors: [],
-        publishedDate: new Date().toISOString(),
-        score: paper.score || 0,
-        isBookmarked: false,
-      }));
+      // Transform the data - handle different possible field names from backend
+      const newPapers = results.map((paper: any, index: number) => {
+        // Try multiple possible field names for title
+        const paperTitle = paper.title || paper.name || paper.paper_title || paper.Title || `Paper ${allPapers.length + index + 1}`;
+        const paperLink = paper.link || paper.url || paper.pdf_url || paper.arxiv_url || "";
+        const paperAbstract = paper.abstract || paper.summary || paper.description || "";
+        
+        return {
+          id: paper.id || paper.paper_id || `paper-${allPapers.length + index}`,
+          title: paperTitle,
+          link: paperLink,
+          source: paper.source || paper.venue || "Papers",
+          keyword: searchQuery,
+          abstract: paperAbstract,
+          authors: paper.authors || paper.author || [],
+          publishedDate: paper.publishedDate || paper.date || paper.published_date || new Date().toISOString(),
+          score: paper.score || 0,
+          isBookmarked: false,
+        };
+      });
       
       // Append new papers to existing ones
       setAllPapers(prev => [...prev, ...newPapers]);
@@ -277,19 +284,32 @@ export default function HomePage() {
         return;
       }
       
-      // Transform the data
-      const transformedPapers = results.map((paper: any, index: number) => ({
-        id: paper.id || `paper-${index}`,
-        title: paper.title || "Untitled",
-        link: paper.link || "",
-        source: paper.source || "Papers",
-        keyword: searchQuery,
-        abstract: paper.abstract || "",
-        authors: [],
-        publishedDate: new Date().toISOString(),
-        score: paper.score || 0,
-        isBookmarked: false,
-      }));
+      // Transform the data - handle different possible field names from backend
+      const transformedPapers = results.map((paper: any, index: number) => {
+        // Try multiple possible field names for title
+        const paperTitle = paper.title || paper.name || paper.paper_title || paper.Title || `Paper ${index + 1}`;
+        const paperLink = paper.link || paper.url || paper.pdf_url || paper.arxiv_url || "";
+        const paperAbstract = paper.abstract || paper.summary || paper.description || "";
+        
+        console.log(`📄 Paper ${index}:`, {
+          id: paper.id,
+          title: paperTitle,
+          originalFields: Object.keys(paper)
+        });
+        
+        return {
+          id: paper.id || paper.paper_id || `paper-${index}`,
+          title: paperTitle,
+          link: paperLink,
+          source: paper.source || paper.venue || "Papers",
+          keyword: searchQuery,
+          abstract: paperAbstract,
+          authors: paper.authors || paper.author || [],
+          publishedDate: paper.publishedDate || paper.date || paper.published_date || new Date().toISOString(),
+          score: paper.score || 0,
+          isBookmarked: false,
+        };
+      });
       
       console.log("✅ Transformed papers:", transformedPapers);
       setAllPapers(transformedPapers);
